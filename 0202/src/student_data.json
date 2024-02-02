@@ -1,0 +1,74 @@
+{
+  "students": [
+    {
+      "rno": 1,
+      "name": "John Doe",
+      "gender": "Male",
+      "age": 20,
+      "bod": "2004-05-15"
+    },
+    {
+      "rno": 2,
+      "name": "Jane Smith",
+      "gender": "Female",
+      "age": 21,
+      "bod": "2003-08-22"
+    },
+    {
+      "rno": 3,
+      "name": "Alex Johnson",
+      "gender": "Male",
+      "age": 19,
+      "bod": "2005-02-10"
+    },
+    {
+      "rno": 4,
+      "name": "Emily Davis",
+      "gender": "Female",
+      "age": 22,
+      "bod": "2000-11-28"
+    },
+    {
+      "rno": 5,
+      "name": "Ryan Miller",
+      "gender": "Male",
+      "age": 20,
+      "bod": "2003-04-05"
+    },
+    {
+      "rno": 6,
+      "name": "Sophia Brown",
+      "gender": "Female",
+      "age": 21,
+      "bod": "2002-09-12"
+    },
+    {
+      "rno": 7,
+      "name": "Michael Wilson",
+      "gender": "Male",
+      "age": 18,
+      "bod": "2006-01-20"
+    },
+    {
+      "rno": 8,
+      "name": "Olivia Clark",
+      "gender": "Female",
+      "age": 22,
+      "bod": "2000-06-17"
+    },
+    {
+      "rno": 9,
+      "name": "Daniel Lee",
+      "gender": "Male",
+      "age": 19,
+      "bod": "2003-11-30"
+    },
+    {
+      "rno": 10,
+      "name": "Emma White",
+      "gender": "Female",
+      "age": 20,
+      "bod": "2002-03-25"
+    }
+  ]
+}
