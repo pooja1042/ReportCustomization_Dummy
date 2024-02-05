@@ -1,0 +1,67 @@
+CREATE TABLE CustomerDetails (
+    CustomerID INT PRIMARY KEY,
+    FirstName VARCHAR(255),
+    LastName VARCHAR(255),
+    Email VARCHAR(255),
+    Phone VARCHAR(20),
+    -- Add other relevant columns as needed
+);
+
+
+CREATE TABLE RoomsInformation (
+    RoomID INT PRIMARY KEY,
+    RoomNumber VARCHAR(10),
+    RoomType VARCHAR(50),
+    Rate DECIMAL(10, 2),
+    -- Add other relevant columns as needed
+);
+
+
+CREATE TABLE Reservation (
+    ReservationID INT PRIMARY KEY,
+    CustomerID INT,
+    RoomID INT,
+    CheckInDate DATE,
+    CheckOutDate DATE,
+    TotalAmount DECIMAL(10, 2),
+    -- Add other relevant columns as needed
+    FOREIGN KEY (CustomerID) REFERENCES CustomerDetails(CustomerID),
+    FOREIGN KEY (RoomID) REFERENCES RoomsInformation(RoomID)
+);
+
+
+CREATE TABLE Availability (
+    AvailabilityID INT PRIMARY KEY,
+    RoomID INT,
+    AvailableDate DATE,
+    IsAvailable BOOLEAN,
+    -- Add other relevant columns as needed
+    FOREIGN KEY (RoomID) REFERENCES RoomsInformation(RoomID)
+);
+
+
+
+
+INSERT INTO CustomerDetails (CustomerID, FirstName, LastName, Email, Phone)
+VALUES
+    (1, 'John', 'Doe', 'john.doe@email.com', '123-456-7890'),
+    (2, 'Jane', 'Smith', 'jane.smith@email.com', '987-654-3210');
+
+
+INSERT INTO RoomsInformation (RoomID, RoomNumber, RoomType, Rate)
+VALUES
+    (101, '101', 'Single', 100.00),
+    (102, '102', 'Double', 150.00);
+
+
+INSERT INTO Reservation (ReservationID, CustomerID, RoomID, CheckInDate, CheckOutDate, TotalAmount)
+VALUES
+    (1001, 1, 101, '2024-02-10', '2024-02-15', 500.00),
+    (1002, 2, 102, '2024-02-12', '2024-02-18', 900.00);
+
+
+INSERT INTO Availability (AvailabilityID, RoomID, AvailableDate, IsAvailable)
+VALUES
+    (2001, 101, '2024-02-10', TRUE),
+    (2002, 101, '2024-02-11', FALSE),
+    (2003, 102, '2024-02-12', TRUE);

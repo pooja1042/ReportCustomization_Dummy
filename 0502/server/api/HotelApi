@@ -1,0 +1,117 @@
+const express = require('express')
+const { Sequelize } = require('sequelize');
+
+const sequelize = new Sequelize('HotelManagement', 'root', '', {
+  host: 'localhost',
+  dialect: 'mysql',
+});
+
+const Routes = express.Router()
+
+Routes.get('/GetAllReservations', async(req, res) => {
+  try{   
+    const [result, metadata] = await sequelize.query(`
+      select 
+        r.ReservationID, r.CheckInDate, r.CheckOutDate, r.TotalAmount,
+        c.FirstName, c.LastName, c.Email, c.Phone,
+        ro.RoomNumber, ro.RoomType, ro.Rate
+      from 
+        Reservation r
+      inner join
+        CustomerDetails c
+      on
+        r.CustomerID = c.CustomerID
+      inner join
+        RoomsInformation ro
+      on
+        r.RoomID = ro.RoomID
+    `)
+    // console.log('Result:\t', result);
+    // console.log('metadata:\t', metadata);
+    res.send(result);
+  }catch(error){
+    res.json({error: `Exception:\t ${error.message}`})
+}
+})
+
+
+// FETCH COLUMNS NAMES
+Routes.get('/FetchColumns', async(req, res) => {
+  try{
+    const [results, metadata] = await sequelize.query(`
+      SELECT column_name
+      FROM information_schema.columns
+      WHERE table_name = :tableName
+        AND table_schema = :databaseName;
+    `, {
+      replacements: { tableName: 'Reservation', databaseName: 'HotelManagement' }
+      // type: Sequelize.QueryTypes.SELECT,
+    });   
+
+    const columnNames = results.map(result => result.column_name)
+    // console.log('result:\t', columnNames);
+    // res.json({response:results})
+    res.send(columnNames)
+  }catch(error){
+    res.json({error:error.message})
+  }
+})
+
+// FETCH ALL TABLES COLUMNS NAMES
+Routes.get('/FetchAllColumns', async(req, res) => {
+  try{
+    const [results, metadata] = await sequelize.query(`
+      SELECT table_name, column_name
+      FROM information_schema.columns
+      WHERE table_schema = :databaseName;
+    `, {
+      replacements: { databaseName: 'HotelManagement' }
+      // type: Sequelize.QueryTypes.SELECT,
+    });   
+
+    const tableColumnsMap = {};
+    results.forEach(result => {
+      const tableName = result.table_name;
+      const columnName = result.column_name;
+
+      if (!tableColumnsMap[tableName]) {
+        tableColumnsMap[tableName] = [columnName];
+      } else {
+        tableColumnsMap[tableName].push(columnName);
+      }
+    });
+
+    const arrayOfObjects = Object.entries(tableColumnsMap).map(([tableName, columns]) => {
+    return {
+      tableName,
+      columns
+      };
+    });
+
+    console.log("data:\t", arrayOfObjects);
+    res.send(arrayOfObjects)
+  }catch(error){
+    res.json({error:error.message})
+  }
+})
+
+// FETCH REQUIRED DATA
+Routes.post('/FetchMe', async(req, res) => {
+  try{
+
+    const which = req.body
+    console.log(which, "\twhich");
+    // if(which.length === 1){
+    //   console.log('one');
+    // }
+    // else{
+    //   console.log('no one');
+    // }
+    // res.send()
+
+  }catch(error){
+    res.json({error:error.message})
+  }
+})
+
+module.exports = Routes

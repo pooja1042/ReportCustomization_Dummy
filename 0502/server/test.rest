@@ -1,0 +1,20 @@
+GET http://localhost:3030/GetAllReservations
+
+###
+
+
+GET http://localhost:3030/FetchColumns
+
+###
+
+
+GET http://localhost:3030/FetchAllColumns
+
+###
+
+POST http://localhost:3030/FetchMe
+content-type: application/json
+
+{
+    "CustomerDetails": ["FirstName"]    
+}
